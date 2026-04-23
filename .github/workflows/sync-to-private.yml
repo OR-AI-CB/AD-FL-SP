@@ -31,7 +31,7 @@ jobs:
 
       - name: Create Issue in Private Repo
         run: |
-          curl -X POST https://api.github.com/repos/Khizar-crewLogix/testissue/issues \
+          curl -X POST https://api.github.com/repos/OR-AI-CB/AD-M-FL/issues \
           -H "Authorization: Bearer ${{ secrets.PRIVATE_REPO_TOKEN }}" \
           -H "Accept: application/vnd.github+json" \
           -d "$(jq -n \
