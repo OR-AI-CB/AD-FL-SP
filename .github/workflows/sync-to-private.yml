@@ -1,0 +1,40 @@
+name: Sync Issues to Private Repo
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # CRITICAL: If your secret is in an Environment, you must link it here
+    #environment: production 
+
+    steps:
+      - name: Format Issue
+        id: format
+        run: |
+          # Create a unique delimiter to handle multi-line strings safely
+          DELIMITER=$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
+          
+          {
+            echo "BODY<<$DELIMITER"
+            echo "### 🐛 Bug Report (From Support Repo)"
+            echo ""
+            echo "${{ github.event.issue.body }}"
+            echo ""
+            echo "---"
+            echo "🔗 Original Issue: ${{ github.event.issue.html_url }}"
+            echo "👤 User: ${{ github.event.issue.user.login }}"
+            echo "$DELIMITER"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create Issue in Private Repo
+        run: |
+          curl -X POST https://api.github.com/repos/Khizar-crewLogix/testissue/issues \
+          -H "Authorization: Bearer ${{ secrets.PRIVATE_REPO_TOKEN }}" \
+          -H "Accept: application/vnd.github+json" \
+          -d "$(jq -n \
+            --arg title "${{ github.event.issue.title }}" \
+            --arg body "${{ steps.format.outputs.BODY }}" \
+            '{title: $title, body: $body}')"
