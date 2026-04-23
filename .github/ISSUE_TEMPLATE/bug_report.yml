@@ -1,0 +1,87 @@
+name: 🐛 Bug Report
+description: Report a bug in the plugin
+title: "[BUG]: "
+labels: ["bug"]
+
+body:
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for reporting 🙌
+        Please fill all required fields.
+
+  - type: input
+    id: contact
+    attributes:
+      label: Email / Contact
+      placeholder: example@gmail.com
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Android
+        - iOS
+        - Both
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Plugin Version
+      placeholder: e.g. 1.0.3
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device Info
+      placeholder: e.g. Samsung S21 / iPhone 13
+
+  - type: input
+    id: os
+    attributes:
+      label: OS Version
+      placeholder: e.g. Android 13 / iOS 17
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Open app
+        2. Click on X
+        3. Crash happens
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      placeholder: What should happen?
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      placeholder: What actually happened?
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Error Messages
+      placeholder: Paste logs here
+
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Screenshots / Attachments
+      description: |
+        Drag & drop images here or paste screenshots.
